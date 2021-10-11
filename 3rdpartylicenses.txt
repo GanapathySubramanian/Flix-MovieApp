@@ -66,6 +66,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+angular-responsive-carousel
+Apache License 2.0
+
 bootstrap
 MIT
 The MIT License (MIT)
