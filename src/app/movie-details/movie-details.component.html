@@ -1,0 +1,388 @@
+<div #moviedetails class="movie-details" >
+
+       <section  class="header" [style.backgroundImage]="'url('+ background_image+')'">
+      
+            <div class="movie-img">
+        
+                <div *ngIf="poster_path==null; then thenBlock else elseBlock"></div>
+                <!-- <ng-template #thenBlock><img src="../../assets/images/no-image.png"></ng-template> -->
+                <ng-template #thenBlock><img src="assets/images/no-image.png"></ng-template>
+                <ng-template #elseBlock><img [attr.src]="IMG_URL+poster_path" alt="{{original_title}}"></ng-template>
+
+            </div>
+
+            <div class="overlay"></div>
+                <div class="home-slide-item-content">
+                    <div class="item-content-wraper">
+                        <div class="item-content-title top-down">
+                            {{original_title}}
+                        </div>
+                        <div class="movie-infos top-down delay-2">
+                            <div class="movie-info">
+                                <i class="far fa-star"></i>
+                                <span>{{rating}}</span>
+                            </div>
+                            <div class="movie-info">
+                                <i class="fas fa-clock"></i>
+                                <span>{{runtime + ' min'}}</span>
+                            </div>
+                            <div class="movie-info">
+                                <i class="fas fa-calendar"></i>
+                                <span>{{release_date}}</span>
+                            </div>
+                            
+                        </div>
+                        <div class="item-content-description top-down delay-4">
+                            {{overview}}
+                        </div>
+                    </div>
+            </div>
+       
+       </section>
+       
+       <main id="main">
+        <div class="movie-poster-img">
+
+            <div *ngIf="poster_path==null; then thenBlock else elseBlock"></div>
+            <!-- <ng-template #thenBlock><img src="../../assets/images/no-image.png"></ng-template> -->
+            <ng-template #thenBlock><img src="assets/images/no-image.png"></ng-template>
+            <ng-template #elseBlock><img [attr.src]="IMG_URL+poster_path" alt="{{original_title}}"></ng-template>
+
+        </div>
+    </main>
+    
+    <div class="text-center mt-5" *ngIf="logos!=null">
+            <img id="movie-logo" src="{{IMG_URL+logos.file_path}}">
+    </div>
+    
+
+    <h1 class="movie-heading mt-5">More About ({{original_title}})</h1>
+    <div class="movie-content" >
+        <table class="details-table">
+            <tbody>
+                <tr>
+                    <td class="details-name">Original Name</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">{{original_title}} </td>
+                </tr>
+                <tr>
+                    <td class="details-name">Release Date</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{release_date}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Status</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{status}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Run Time</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{runtime+" min"}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Rating</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" > {{'( '+rating+' / 10 )'}}
+                        <ngb-rating [max]="10" [(rate)]="rating" [readonly]="true"></ngb-rating>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="details-name">Budget</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{budget}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Revenue</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{revenue}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Original Language</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{original_lan}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Rating Count</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">{{vote_count}} Votes</td>
+                </tr>
+                <tr class="tr-overview">
+                    <td class="details-name">OverView</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value movie-description">{{overview}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Production</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">
+                        <!-- <span *ngFor="let prod of production_cmy; let i=index;">
+                            
+                            <div *ngIf="prod.logo_path==null; then noprodImg else prodImg"></div>
+                            <ng-template #prodImg>
+                                <img src="{{IMG_URL+prod.logo_path}}" style="margin-right:20px;margin-top:10px"width="80" height="30">
+                            </ng-template>
+
+                            <ng-template #noprodImg>
+                                <span>{{prod.name}}<span *ngIf='prod_len!=i+1'> , </span></span>
+                            </ng-template>
+                        
+                        </span> -->
+
+
+                        <span *ngFor="let prod of production_cmy; let i=index;">   
+                                <span>{{prod.name}}<span *ngIf='prod_len!=i+1'> , </span></span>
+                         
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="details-name">Genres</td>
+                    <td class="colon"> : </td>
+                    <td class="details-value">
+                        <span *ngFor="let genre of genre;let i=index;">
+                            {{genre.name}}
+                            <span *ngIf='genre_len != i+1'> , </span>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="reviews-section">
+            <h2 class="movie-heading mt-5">REVIEWS FOR {{'('+original_title+')'}}</h2> 
+            <div *ngIf="noreview==null; then noreviewBlock else reviewBlock"></div> 
+                <ng-template #reviewBlock>
+                    <table class="table-review table-responsive">
+                        <thead class="table-review-head">
+                            <td>SNO</td>
+                            <td>REVIEWS</td>
+                        </thead>
+                        <tbody class="table-review-body">
+                            <tr *ngFor="let rev of reviews;let i=index;">
+                                <td>{{i+1}}</td>
+                                <td>{{rev.content}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>               
+                <ng-template #noreviewBlock>
+                <div id="no-record_images">
+                    <h1 class="text-warning text-center">Reviews Not available For {{original_title}}</h1>
+                </div>
+            </ng-template> 
+        </div>
+        <hr>
+          
+        
+        <div class="Backdropimages">
+
+            <h2 class="movie-heading mt-5">BACKDROP IMAGES OF {{'('+original_title+')'}}</h2>
+                <div *ngIf="nobackdrop==null; then nobackdropBlock else backdropBlock"></div>                
+                <ng-template #backdropBlock>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12 col-md-12 mt-5" *ngFor="let back_path of backdrop_paths">
+                            <span><img src="{{IMG_URL+back_path.file_path}}" width="100%" height="100%"></span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #nobackdropBlock>
+                <div id="no-record_images">
+                    <h1 class="text-warning text-center">Backdrops not available for {{original_title}}</h1>
+                </div>
+            </ng-template> 
+        </div>
+        <hr>
+          
+
+
+        <div class="posterImages">
+            <h2 class="movie-heading mt-5">{{original_title}} POSTERS</h2>
+            <div *ngIf="nopost==null; then noposters else posters"></div>
+            <ng-template #posters>
+                <carousel class="text-center" [autoplay]=true [autoplayInterval]=3000 [pauseOnHover]=true [height]=300 [margin]=30>
+                    <div class="carousel-cell" *ngFor="let post of posters_data">
+                        <img src="{{IMG_URL+post.file_path}}" width="100%" height="100%">
+                    </div>
+                </carousel>
+            </ng-template>
+
+            <ng-template #noposters>
+                <div id="no-record_poster">
+                    <h1 class="text-warning text-center">Posters not available for {{original_title}}</h1>
+                </div>
+            </ng-template>
+        </div>
+        <hr>
+
+
+        <div class="videos">
+            <h2 class="movie-heading mt-5">{{original_title}} VIDEOS</h2>
+            <div *ngIf="novideos==null; then novideo else video"></div>
+            <ng-template #video>
+                <carousel class="text-center"  [cellWidth]=400 [height]=300 [margin]=50>
+                    <div class="carousel-cell" *ngFor="let video of videos_data" >
+                        <iframe height="100%" width="100%" id="stop-video" class="youtube-video" [src]="video.key" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </carousel>
+            </ng-template>
+            <ng-template #novideo> 
+                <div id="no-record_images" >
+                    <h1 class="text-warning text-center">Videos not available for {{original_title}}</h1>
+                </div>
+            </ng-template>
+        </div>
+        <hr>
+
+        <div class="cast-section">
+            <h2 class="movie-heading mt-5">CAST</h2>
+            <p class="h4 text-center">Click the Person to know more</p>
+            <div *ngIf="nocastdata==null; then nocast else castdata"></div>
+            <ng-template #castdata>       
+                    <main class="cast">   
+                        <div class="movie btn-container" *ngFor="let cast_data of cast" [routerLink]="['/persondetails', cast_data.id]" >
+                            <div *ngIf="cast_data.profile_path==null; then thenBlock else elseBlock"></div>
+                            <ng-template #thenBlock><img class="btn-image" src="assets/images/no-image.png"></ng-template>
+                            <ng-template #elseBlock><img class="btn-image" src="{{IMG_URL+cast_data.profile_path}}"></ng-template>
+                            <div class="btn-middle">
+                                <div class="text btn-info">Know More</div>
+                            </div>
+                            <div class="movie-info-cast">
+                                <h4>{{cast_data.original_name}}</h4>
+                                <span>AS {{cast_data.character}}</span>
+                            </div>
+                        
+                        </div>
+                    </main>
+            </ng-template>
+            <ng-template #nocast> 
+                <div id="no-record_cast">
+                    <h1 class="text-warning text-center">Cast not available for {{original_title}}</h1>
+                </div>
+            </ng-template>
+        </div>
+
+
+        <!-- <div class="container">
+            <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%">
+            <div class="middle">
+              <div class="text">John Doe</div>
+            </div>
+          </div> -->
+            
+        <hr>
+
+        
+        <div class="crew-section">
+            <h2 class="movie-heading mt-5">CREW</h2>
+            <p class="h4 text-center">Click the Person to know more</p>
+            <div *ngIf="nocrewdata==null; then nocrew else crewdata"></div>
+            <ng-template #crewdata>
+                <main class="cast">
+                    <div class="movie btn-container" *ngFor="let crew_data of crew" [routerLink]="['/persondetails', crew_data.id]" >
+        
+                        <div *ngIf="crew_data.profile_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><img class="btn-image"src="assets/images/no-image.png"></ng-template>
+                        <ng-template #elseBlock><img class="btn-image" src="{{IMG_URL+crew_data.profile_path}}"></ng-template>
+                        <div class="btn-middle">
+                            <div class="text btn-info">Know More</div>
+                        </div>
+                        <div class="movie-info-crew">
+                            <h4>{{crew_data.original_name}}</h4>
+                            <span>Job :  {{crew_data.job}}</span>
+                        </div>
+                    </div>
+                </main>
+            </ng-template>
+            <ng-template #nocrew> 
+                <div id="no-record_crew">
+                    <h1 class="text-warning text-center">Crew not available for {{original_title}}</h1>
+                </div>
+            </ng-template>
+        </div>
+        <hr>
+
+        <div class="sim_movies">
+            <h2 class="movie-heading mt-5">RECOMMENDED MOVIES</h2>
+            <p class="h4 text-center">Click the movie to know more</p>
+            <div *ngIf="norecmoviedata==null; then norecmovie else recmovie"></div>
+            <ng-template #recmovie>
+                <main class="s_movies">
+                    <div class="movie rec-movies" *ngFor="let s_movies of recommended_movies" [routerLink]="['/similarmoviesdetails', s_movies.id]">
+                      
+                    <div *ngIf="s_movies.poster_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <figure>
+                                <img src="assets/images/no-image.png">
+                            </figure>
+                        </ng-template>
+                        <ng-template #elseBlock>  
+                            <figure>
+                                <img src="{{IMG_URL+s_movies.poster_path}}">
+                            </figure>
+                        </ng-template>
+                
+                        <div class="movie-info">
+                            <h4>{{s_movies.title}}</h4>
+                            <span [ngClass]="{'red':s_movies.vote_average<=5,'orange':s_movies.vote_average>=5&&s_movies.vote_average<8,'green':s_movies.vote_average>=8}">{{float2int((s_movies.vote_average/10)*100) +'%'}}</span>
+                        </div>
+                        <div class="movie-info">
+                            <ngb-rating [max]="10" [(rate)]="s_movies.vote_average" [readonly]="false"></ngb-rating>
+                        </div>
+                        <div class="date">
+                            <p><i class="fas fa-calendar-alt"></i> {{s_movies.release_date}}</p>
+                          </div>
+                    </div>
+                </main>
+            </ng-template>
+            <ng-template #norecmovie> 
+                <div id="no-record_recommended_movies">
+                    <h1 class="text-warning text-center">Recommeded movies not available for {{original_title}}</h1>
+                  </div>
+            </ng-template>    
+        </div>
+        <hr>
+      
+        <div class="sim_movies-section">
+            <h2 class="movie-heading mt-5">SIMILAR MOVIES</h2>
+            <p class="h4 text-center">Click the movie to know more</p>
+
+            <div *ngIf="nosimmoviedata==null; then nosimmovie else simmoviedata"></div>
+            <ng-template #simmoviedata>
+                <main class="s_movies">
+                    <div class="movie sim-movies" *ngFor="let s_movies of similar_movies" [routerLink]="['/similarmoviesdetails', s_movies.id]">
+                      
+                    <div *ngIf="s_movies.poster_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <figure>
+                            <img src="assets/images/no-image.png">
+                            </figure>
+                        </ng-template>
+                        <ng-template #elseBlock>  
+                            <figure>
+                                <img src="{{IMG_URL+s_movies.poster_path}}">
+                            </figure>
+                        </ng-template>
+                
+                        <div class="movie-info">
+                            <h4>{{s_movies.title}}</h4>
+                            <span [ngClass]="{'red':s_movies.vote_average<=5,'orange':s_movies.vote_average>=5&&s_movies.vote_average<8,'green':s_movies.vote_average>=8}">{{float2int((s_movies.vote_average/10)*100)+'%'}}</span>
+                        </div>
+                        <div class="movie-info">
+                            <ngb-rating [max]="10" [(rate)]="s_movies.vote_average" [readonly]="false"></ngb-rating>
+                        </div>
+                        <div class="date">
+                            <p><i class="fas fa-calendar-alt"></i> {{s_movies.release_date}}</p>
+                          </div>
+                    </div>
+                </main>
+            </ng-template>
+            <ng-template #nosimmovie> 
+                <div id="no-record_similar_movies" >
+                    <h1 class="text-warning text-center">Similar movies not avilable for {{original_title}}</h1>
+                  </div>
+            </ng-template>
+        </div>
+
+    </div>
+</div>

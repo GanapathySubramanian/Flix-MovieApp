@@ -1,0 +1,424 @@
+<div class="tvshows-details">
+
+    <section  class="header" [style.backgroundImage]="'url('+ background_image+')'">
+      
+            <div class="tvshows-img">
+    
+                <div *ngIf="poster_path==null; then NoImg else Img"></div>
+                <ng-template #NoImg><img src="assets/images/no-image.png"></ng-template>
+                <ng-template #Img><img [attr.src]="IMG_URL+poster_path"></ng-template>
+    
+            </div>
+        <div class="overlay"></div>
+            <div class="home-slide-item-content">
+                <div class="item-content-wraper">
+                    <div class="item-content-title top-down">
+                        {{original_name}}
+                    </div>
+                    <div class="tvshows-infos top-down delay-2">
+                        <div class="tvshows-info">
+                            <i class="far fa-star"></i>
+                            <span>{{rating}}</span>
+                        </div>
+                        <div class="tvshows-info">
+                            <i class="fas fa-clock"></i>
+                            <span *ngFor="let avg of avg_run_time">{{avg + ' min'}}</span>
+                        </div>
+                        <div class="tvshows-info">
+                            <i class="fas fa-calendar"></i>
+                            <span>{{first_air_date}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="item-content-description top-down delay-4">
+                        {{overview}}
+                    </div>
+                </div>
+        </div>
+   
+   </section>
+
+    <main id="main">
+        <div class="tvshows-poster-img">
+
+            <div *ngIf="poster_path==null; then NoImg else Img"></div>
+            <ng-template #NoImg><img src="assets/images/no-image.png"></ng-template>
+            <ng-template #Img><img [attr.src]="IMG_URL+poster_path"></ng-template>
+
+        </div>
+    </main>
+
+    <div class="text-center mt-5" *ngIf="logos!=null">
+        <img id="tvshows-logo" src="{{IMG_URL+logos.file_path}}">
+    </div>
+
+    <h1 class="tvshows-heading mt-5">More About ({{original_name}})</h1>
+
+    <div class="tvshows-content">
+        <table class="details-table">
+            <tbody>
+                <tr>
+                    <td class="details-name">Original Name</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">{{original_name}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">First Air Date</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">{{first_air_date}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Status</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">{{status}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Average Run time</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value"><span  *ngFor="let avg of avg_run_time" class="pl-2">{{avg+" min"}}</span></td>
+                </tr>
+                <tr>
+                    <td class="details-name">Rating</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" > {{'( '+rating+' / 10 )'}}
+                        <ngb-rating [max]="10" [(rate)]="rating" [readonly]="true"></ngb-rating>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="details-name">Original Language</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" >{{original_lan}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Last Air Date</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">{{last_air_date}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Number of Episodes</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" >{{no_of_epi}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Number of Season</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" >{{no_of_sesa}}</td>
+                </tr>
+                
+                <tr class="tr-overview">
+                    <td class="details-name">Overview</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" >{{overview}}</td>
+                </tr>
+                <tr>
+                    <td class="details-name">Streaming On</td>
+                    <td  class="colon"> : </td>
+                    <td  ><span *ngFor="let stream of network" class="pl-2"><img src="{{IMG_URL+stream.logo_path}}" width="60" height="30" alt={{stream.name}}></span></td>
+                </tr>
+                <tr>
+                    <td class="details-name">Production Companies</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value" >
+                        
+                        <!-- <span *ngFor="let pro_comp of production_cmy; let i=index;" class="pl-2">
+                            
+                            <div *ngIf="pro_comp.logo_path==null; then noprodImg else prodImg"></div>
+                            <ng-template #prodImg>
+                                <img src="{{IMG_URL+pro_comp.logo_path}}" width="60" height="30">
+                            </ng-template>
+
+                            <ng-template #noprodImg>
+                                <span>{{pro_comp.name}}<span *ngIf='prod_len!=i+1'> , </span></span>
+                            </ng-template>
+                        
+                        </span> -->
+
+                        <span *ngFor="let pro_comp of production_cmy; let i=index;" class="pl-2">
+                                <span>{{pro_comp.name}}<span *ngIf='prod_len!=i+1'> , </span></span>
+                        </span>
+                    </td>  
+                </tr>
+                <tr>
+                    <td class="details-name">Genres</td>
+                    <td  class="colon"> : </td>
+                    <td class="details-value">
+                        <span *ngFor="let genre of genre;let i=index;">
+                            {{genre.name}}
+                            <span *ngIf='genre_len != i+1'> , </span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+
+       
+        <div class="reviews-section">
+            <h2 class="tvshows-heading mt-5">REVIEWS FOR {{'('+original_name+')'}}</h2> 
+            <div *ngIf="noreview==null; then noreviewBlock else reviewBlock"></div> 
+                <ng-template #reviewBlock>
+                    <table class="table-review table-responsive">
+                        <thead class="table-review-head">
+                            <td>SNO</td>
+                            <td>REVIEWS</td>
+                        </thead>
+                        <tbody class="table-review-body">
+                            <tr *ngFor="let rev of reviews;let i=index;">
+                                <td>{{i+1}}</td>
+                                <td>{{rev.content}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>               
+                <ng-template #noreviewBlock>
+                <div id="no-record_images">
+                    <h1 class="text-warning text-center">Reviews Not available For {{original_name}}</h1>
+                </div>
+            </ng-template> 
+        </div>
+        <hr>
+
+        <div class="Backdropimages">
+
+            <h2 class="tvshows-heading mt-5">BACKDROP IMAGES OF {{'('+original_name+')'}}</h2>
+                <div *ngIf="nobackdrop==null; then nobackdropBlock else backdropBlock"></div>                
+                <ng-template #backdropBlock>
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12 col-md-12 mt-5" *ngFor="let back_path of backdrop_paths">
+                            <span><img src="{{IMG_URL+back_path.file_path}}" width="100%" height="100%"></span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #nobackdropBlock>
+                <div id="no-record_images">
+                    <h1 class="text-warning text-center">Backdrop images not available for {{original_name}}</h1>
+                </div>
+            </ng-template> 
+        </div>
+        <hr>
+     
+        <div class="seasons-section">
+            <h2 class="tvshows-heading mt-5">NUMBER OF SEASONS IN {{'('+original_name+')'}}</h2>
+        <p class="text-white h4 text-center">Click the Seasons to know more</p>
+        <main>         
+            <div class="tvshows" *ngFor="let e of seasons;let i=index;" [routerLink]="['/tvshow-episode',tvshowid,i+1,original_name]">
+
+                <div *ngIf="e.poster_path==null; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock><img src="assets/images/no-image.png"></ng-template>
+                <ng-template #elseBlock><img src="{{IMG_URL+e.poster_path}}"></ng-template>
+
+                <div class="tvshows-info">
+                    <h3>{{e.name}}</h3>    
+                </div>
+                <div class="tvshows-info">
+                    <h4>air date</h4>{{e.air_date}}
+                    </div>
+                    <div class="tvshows-info">
+                    <h4>Episode counts</h4>{{e.episode_count}}
+                    </div>
+                
+                
+                <div class="overview">
+                    <h3 class="text-warning">Overview</h3>
+                    <span class="text-secondary">{{e.overview}}</span>
+                    <br>
+                    <button class="btn btn-warning">Know More</button>
+                </div>
+            </div>
+        </main>
+        </div>
+      <hr>
+        
+      <div class="posters-section">
+        <h2 class="tvshows-heading mt-5">{{original_name}} POSTERS</h2>
+        
+        <div *ngIf="nopost==null; then noposters else posters"></div>
+            <ng-template #posters>
+                <carousel class="text-center" [autoplay]=true [autoplayInterval]=3000 [pauseOnHover]=true [height]=300 [margin]=30>
+                    <div class="carousel-cell" *ngFor="let post of posters_data">
+                        <img src="{{IMG_URL+post.file_path}}" width="100%" height="100%">
+                    </div>
+                </carousel>
+            </ng-template>
+
+            <ng-template #noposters>
+                <div id="no-record_poster">
+                    <h1 class="text-warning text-center">Posters not available for {{original_name}}</h1>
+                </div>
+            </ng-template>
+      </div>
+        <hr>
+
+        <div class="videos-section">
+            <h2 class="tvshows-heading mt-5">{{original_name}} VIDEOS</h2>
+            <div *ngIf="novideos==null; then novideo else video"></div>
+            <ng-template #video>
+                <carousel class="text-center"  [cellWidth]=400 [height]=300 [margin]=50>
+                    <div class="carousel-cell" *ngFor="let video of videos_data" >
+                        <iframe height="100%" width="100%" id="stop-video" class="youtube-video" [src]="video.key" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </carousel>
+            </ng-template>
+            <ng-template #novideo> 
+                <div id="no-record_images" >
+                    <h1 class="text-warning text-center">Videos not available for {{original_name}}</h1>
+                </div>
+            </ng-template>          
+        </div>
+        <hr>
+
+        <div class="cast-section">
+            <h2 class="tvshows-heading mt-5">CAST</h2>
+           <p class="text-white h4 text-center">Click the person to know more</p>
+     
+            <div *ngIf="nocastdata==null; then nocastData else castData"></div>
+            <ng-template #castData>
+                <main class="cast">   
+                    <div class="tvshows btn-container" *ngFor="let cast_data of cast" [routerLink]="['/persondetails', cast_data.id]" >
+                        <div *ngIf="cast_data.profile_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><img class="btn-image" src="assets/images/no-image.png"></ng-template>
+                        <ng-template #elseBlock><img class="btn-image" src="{{IMG_URL+cast_data.profile_path}}"></ng-template>
+                        <div class="btn-middle">
+                            <div class="text btn-info">Know More</div>
+                        </div>
+                        <div class="tvshows-info-cast">
+                            <h4>{{cast_data.original_name}}</h4>
+                            <span>AS {{cast_data.character}}</span>
+                        </div>
+                    </div>
+                </main>
+                
+            </ng-template>
+            <ng-template #nocastData> 
+                <div id="no-record_cast">
+                    <h1 class="text-warning text-center">Cast not available for {{original_name}}</h1>
+                </div>
+            </ng-template>
+        </div>
+        <hr>
+       
+        <div class="crew-section">
+            <h2 class="tvshows-heading mt-5">CREW</h2>
+            <p class="text-white h4 text-center">Click the person to know more</p>
+            <div *ngIf="nocrewdata==null; then nocrewData else crewData"></div>
+            <ng-template #crewData>
+                <main class="cast">
+                    <div class="tvshows btn-container" *ngFor="let crew_data of crew" [routerLink]="['/persondetails', crew_data.id]" >
+        
+                        <div *ngIf="crew_data.profile_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><img class="btn-image" src="assets/images/no-image.png"></ng-template>
+                        <ng-template #elseBlock><img class="btn-image" src="{{IMG_URL+crew_data.profile_path}}"></ng-template>
+            
+                        <div class="btn-middle">
+                            <div class="text btn-info">Know More</div>
+                        </div>
+                       
+                        <div class="tvshows-info-crew">
+                            <h4>{{crew_data.original_name}}</h4>
+                            <span>Job :  {{crew_data.job}}</span>
+                        </div>
+                    </div>
+                </main>
+            </ng-template>
+            <ng-template #nocrewData> 
+                <div id="no-record_crew">
+                    <h1 class="text-warning text-center">Crew not available for {{original_name}}</h1>
+                </div>
+            </ng-template>  
+        </div>
+        <hr>
+
+
+        <div class="rec_tvshows-section">
+            <h2 class="tvshows-heading mt-5">RECOMMENDED TVSHOWS</h2>
+            <p class="text-white h4 text-center">Click the tvshow to know more</p>
+
+            <div *ngIf="norecmoviedata==null; then norecData else recData"></div>
+            <ng-template #recData>
+                <main class="r_tvshows">
+                    <div class="tvshows rec-tvshows" *ngFor="let r_tvshows of recommended_tvshows" [routerLink]="['/similartvshowsdetails', r_tvshows.id]">
+                      
+                    <div *ngIf="r_tvshows.poster_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <figure>
+                                <img src="assets/images/no-image.png">
+                            </figure>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <figure>
+                                <img src="{{IMG_URL+r_tvshows.poster_path}}">
+                            </figure>
+                        </ng-template>
+                
+                        <div class="tvshows-info">
+                            <h4>{{r_tvshows.name}}</h4>
+                            <span [ngClass]="{'red':r_tvshows.vote_average<=5,'orange':r_tvshows.vote_average>=5&&r_tvshows.vote_average<8,'green':r_tvshows.vote_average>=8}">{{float2int((r_tvshows.vote_average/10)*100)+'%'}}</span>
+                        </div>
+                        <div class="tvshows-info">
+                            <ngb-rating [max]="10" [(rate)]="r_tvshows.vote_average" [readonly]="false"></ngb-rating>
+                        </div>
+                        <div class="date">
+                            <p><i class="fas fa-calendar-alt"></i> {{r_tvshows.first_air_date}}</p>
+                          </div>
+                    </div>
+                </main>
+            </ng-template>
+            <ng-template #norecData> 
+                <div id="no-record_recommended_tvshows">
+                    <h1 class="text-warning text-center">Recommeded tvshows not available for {{original_name}}</h1>
+                  </div>
+            </ng-template> 
+        </div>
+        <hr>
+        
+
+
+
+        <div class="sim_tvshows-section">
+            <h2 class="tvshows-heading mt-5">SIMILAR TVSHOWS</h2>
+            <p class="text-white h4 text-center">Click the tvshow to know more</p>
+
+            <div *ngIf="nosimmoviedata==null; then nosimData else simData"></div>
+            <ng-template #simData>
+                
+                <main class="s_tvshows">
+                    <div class="tvshows sim-tvshows" *ngFor="let s_tvshows of similar_tvshows" [routerLink]="['/similartvshowsdetails', s_tvshows.id]">
+                      
+                    <div *ngIf="s_tvshows.poster_path==null; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <figure>
+                            <img src="assets/images/no-image.png">
+                            </figure>
+                        </ng-template>
+                        <ng-template #elseBlock>  
+                            <figure>
+                                <img src="{{IMG_URL+s_tvshows.poster_path}}">
+                            </figure>
+                        </ng-template>
+                
+                        <div class="tvshows-info">
+                            <h4>{{s_tvshows.name}}</h4>
+                            <span [ngClass]="{'red':s_tvshows.vote_average<=5,'orange':s_tvshows.vote_average>=5&&s_tvshows.vote_average<8,'green':s_tvshows.vote_average>=8}">{{float2int((s_tvshows.vote_average/10)*100)+'%'}}</span>
+                        </div>
+    
+                       <div class="tvshows-info">
+                        <ngb-rating [max]="10" [(rate)]="s_tvshows.vote_average" [readonly]="false"></ngb-rating>
+                       </div>
+                        <div class="date">
+                            <p><i class="fas fa-calendar-alt"></i> {{s_tvshows.first_air_date}}</p>
+                          </div>
+                    </div>
+                </main>
+    
+            </ng-template>
+            <ng-template #nosimData>                           
+                <div id="no-record_similar_tvshows">
+                    <h1 class="text-warning text-center">Similar tvshows not available for {{original_name}}</h1>
+                </div> 
+            </ng-template>  
+
+        </div>
+
+      </div>
+</div>
