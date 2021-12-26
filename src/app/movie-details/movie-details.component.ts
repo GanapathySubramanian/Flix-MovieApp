@@ -70,7 +70,8 @@ export class MovieDetailsComponent implements OnInit {
  
 
     background_image:any="";
-
+    watchprovider:String="";
+    watchproviderlist:any;
     constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer) { 
       let id = this.route.snapshot.params.id;
       movie_id=id;
@@ -103,11 +104,14 @@ export class MovieDetailsComponent implements OnInit {
       //To get the Reviews
       var reviews_url=base_url+movie_id+'/reviews?'+api_key;
       this.getReviews(reviews_url)
+
+     
   }
     float2int (value:any) {
       return value | 0;
     }
  
+    
     getData(url:any){
       this.http.get(url).subscribe((res)=>{
         
@@ -116,8 +120,8 @@ export class MovieDetailsComponent implements OnInit {
           //Movie details 
           this.data=this.val;
 
-          // console.log("Movies Details:");
-          // console.log(this.data);
+          console.log("Movies Details:");
+          console.log(this.data);
           
           this.budget=this.data.budget;
           this.original_title=this.data.original_title;  
@@ -134,6 +138,14 @@ export class MovieDetailsComponent implements OnInit {
           this.genre=this.data.genres;
           this.genre_len=this.genre.length;
           this.poster_path=this.data.poster_path;
+
+         
+          if(this.data.homepage==""){
+            var watch_provider="https://api.themoviedb.org/3/movie/"+movie_id+"/watch/providers?"+api_key;
+            this.getWatchprovider(watch_provider)
+          }else{
+            this.watchprovider=this.data.homepage;
+          }
   
       })
       
@@ -185,7 +197,15 @@ export class MovieDetailsComponent implements OnInit {
     }
  
   
-
+    getWatchprovider(url:any){
+      this.http.get(url).subscribe((res)=>{
+        this.watchproviderlist=res;
+        console.log(url);
+        
+        console.log(this.watchproviderlist);
+        this.watchprovider=this.watchproviderlist.results.IN.link;
+      })
+    }
 
   getReviews(url:any){
     this.http.get(url).subscribe((res)=>{

@@ -69,6 +69,10 @@ export class TvshowsdetailsComponent implements OnInit {
   noreview:any='data';
   background_image:any="";
   nobackdropback:any="";
+
+  watchprovider:String="";
+    watchproviderlist:any;
+
    constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer) { 
     let id = this.route.snapshot.params.id;
     tvshow_id=id;
@@ -190,7 +194,9 @@ getReviews(url:any){
     this.http.get(url).subscribe((res)=>{
       this.val= res
       this.data=this.val;
-      console.log("tvshows details : "+this.data);
+      console.log("tvshows details : ");
+      console.log(this.data);
+      
       
       // To get tvshow details
 
@@ -232,9 +238,24 @@ getReviews(url:any){
         }
       }
       console.log(this.seasons);
-    
+     if(this.data.homepage==""){
+            var watch_provider="https://api.themoviedb.org/3/tv/"+tvshow_id+"/watch/providers?"+api_key;
+            this.getWatchprovider(watch_provider)
+          }else{
+            this.watchprovider=this.data.homepage;
+          }
     })
     
+  }
+
+  getWatchprovider(url:any){
+    this.http.get(url).subscribe((res)=>{
+      this.watchproviderlist=res;
+      console.log(url);
+      
+      console.log(this.watchproviderlist);
+      this.watchprovider=this.watchproviderlist.results.IN.link;
+    })
   }
   getSimTvshows(url:any){
     this.http.get(url).subscribe((res)=>{

@@ -16,7 +16,7 @@ const base_url="https://api.themoviedb.org/3";
 const api_url=base_url+'/discover/movie?sort_by='+sort_by_id+'&'+api_key+'&page='+page;
 
 //Base url for images - Posters
-const img_url="https://image.tmdb.org/t/p/w500/";
+const img_url="https://image.tmdb.org/t/p/original/";
 
 //For searching 
 const SEARCH_URL=base_url+"/search/movie?"+api_key;

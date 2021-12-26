@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http";
 var person_id="",profile_path="";
 const  base_url="https://api.themoviedb.org/3/person/";
 const  api_key="api_key=7636ad8cc0fec57396bc5c069605a982";
-const  img_url="https://image.tmdb.org/t/p/w500";
+const  img_url="https://image.tmdb.org/t/p/original";
 
 
 @Component({
