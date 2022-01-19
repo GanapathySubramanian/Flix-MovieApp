@@ -6,8 +6,7 @@ import { HttpClient } from "@angular/common/http";
 var tvshow_id="",season_id="";
 const base_url="https://api.themoviedb.org/3/tv/";
 const api_key="api_key=7636ad8cc0fec57396bc5c069605a982";
-const img_url="https://image.tmdb.org/t/p/w500";
-const youtube_url="https://www.youtube.com/embed/";
+const img_url="https://image.tmdb.org/t/p/original";
 
 @Component({
   selector: 'app-tvshow-episodes',
