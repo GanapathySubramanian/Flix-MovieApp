@@ -73,7 +73,7 @@ export class TvshowsdetailsComponent implements OnInit {
   watchprovider:String="";
     watchproviderlist:any;
 
-   constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer) { 
+   constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer,private router:Router) { 
     let id = this.route.snapshot.params.id;
     tvshow_id=id;
     console.log(tvshow_id);
@@ -81,6 +81,33 @@ export class TvshowsdetailsComponent implements OnInit {
     this.getbackdrop(base_url+tvshow_id+"/images?"+api_key+"&include_image_language=en")
   }
 
+  ngOnInit() {
+
+    this.router.navigateByUrl('/tvshowsdetails/'+tvshow_id);
+    //To get the tvshow details
+    var api_url=base_url+tvshow_id+'?'+api_key;
+    this.getData(api_url);
+
+    //To get the cast & crew details
+    var credits=base_url+tvshow_id+'/credits?'+api_key;
+    this.getCredits(credits)
+
+    //To get the similar movies details
+    var sim_tvshow=base_url+tvshow_id+'/similar?'+api_key;
+    this.getSimTvshows(sim_tvshow)
+
+    //To get the recommended movies details
+    var rec_tvshow=base_url+tvshow_id+'/recommendations?'+api_key;
+    this.getRecTvshows(rec_tvshow)
+
+    //To get the videos
+    var video_url=base_url+tvshow_id+"/videos?"+api_key;
+    this.getvideoData(video_url);
+    //To get the Reviews
+    
+    var reviews_url=base_url+tvshow_id+'/reviews?'+api_key;
+    this.getReviews(reviews_url)
+}
 
   getbackdrop(url:any){
     this.http.get(url).subscribe((res)=>{
@@ -121,31 +148,7 @@ export class TvshowsdetailsComponent implements OnInit {
   float2int (value:any) {
     return value | 0;
   }
-  ngOnInit() {
-    //To get the tvshow details
-    var api_url=base_url+tvshow_id+'?'+api_key;
-    this.getData(api_url);
-
-    //To get the cast & crew details
-    var credits=base_url+tvshow_id+'/credits?'+api_key;
-    this.getCredits(credits)
-
-    //To get the similar movies details
-    var sim_tvshow=base_url+tvshow_id+'/similar?'+api_key;
-    this.getSimTvshows(sim_tvshow)
-
-    //To get the recommended movies details
-    var rec_tvshow=base_url+tvshow_id+'/recommendations?'+api_key;
-    this.getRecTvshows(rec_tvshow)
-
-    //To get the videos
-    var video_url=base_url+tvshow_id+"/videos?"+api_key;
-    this.getvideoData(video_url);
-    //To get the Reviews
-    
-    var reviews_url=base_url+tvshow_id+'/reviews?'+api_key;
-    this.getReviews(reviews_url)
-}
+ 
 
 
 getReviews(url:any){

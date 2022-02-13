@@ -72,7 +72,7 @@ export class MovieDetailsComponent implements OnInit {
     background_image:any="";
     watchprovider:String="";
     watchproviderlist:any;
-    constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer) { 
+    constructor(private route: ActivatedRoute,private http: HttpClient,private _sanitizer:DomSanitizer,private router:Router) { 
       let id = this.route.snapshot.params.id;
       movie_id=id;
       this.getbackdrop(base_url+movie_id+"/images?"+api_key+"&include_image_language=en")
@@ -81,6 +81,8 @@ export class MovieDetailsComponent implements OnInit {
   
     ngOnInit() {
     
+     
+      this.router.navigateByUrl('/moviedetails/'+movie_id);
     // To get the Movie Details
       var api_url=base_url+movie_id+'?'+api_key;
       this.getData(api_url)

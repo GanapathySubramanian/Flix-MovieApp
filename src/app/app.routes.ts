@@ -44,5 +44,10 @@ export const Approute:Routes =[
     {
         path:'tvshow-episode/:tvshowid/:season/:tvshow_name',
         component:TvshowEpisodesComponent
+    },
+    {
+        path:'**',
+        component:MoviesComponent,
+        pathMatch:'full'
     }
 ];
