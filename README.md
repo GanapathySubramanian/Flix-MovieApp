@@ -5,14 +5,14 @@ Live Demo Video : [Click Here](https://www.linkedin.com/feed/update/urn:li:activ
 Live Demo : [Flix](https://ganapathysubramanian.github.io/Flix/)
 
 ## Prerequisites
-1. Install Nodejs and Angular cli
+1. Install Nodejs [(Guide)](https://nodejs.org/en/download/) and Angular cli [(Guide)](https://angular.io/cli)
 2. Any Editor (Preferably VS Code or Brackets Text Editor)
 3. Any web browser with latest version(eg chrome)
 
 ## Languages and Technologies used
 1. HTML5/CSS3
 2. Bootstrap
-3. TypeScript (to create dynamically updating content)
+3. TypeScript
 4. Angular
 5. TMDB Api
 
