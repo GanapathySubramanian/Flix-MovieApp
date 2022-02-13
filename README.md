@@ -1,8 +1,9 @@
 # Flix - Movies & Tvshows
 
-Live Demo Video : [Click Here](https://www.linkedin.com/feed/update/urn:li:activity:6889587893023711232/)
 
 Live Demo : [Flix](https://ganapathysubramanian.github.io/Flix/)
+
+Live Demo Video : [Click Here](https://www.linkedin.com/feed/update/urn:li:activity:6889587893023711232/)
 
 ## Prerequisites
 1. Install Nodejs [(Guide)](https://nodejs.org/en/download/) and Angular cli [(Guide)](https://angular.io/cli)
